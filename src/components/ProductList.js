@@ -1,34 +1,59 @@
-import { HStack, VStack, Text, StackDivider, Divider } from "@chakra-ui/react";
+import { HStack, VStack, Text, StackDivider, Divider, Button, useToast } from "@chakra-ui/react";
 import { FaPlusCircle } from "react-icons/fa";
-import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
+import React, { useState, useEffect } from "react";
 import Product from "./Product";
 
-function ProductList({ productList, setProductList, TotalValue, setTotalValue }) {
+function ProductList({ user, setUser, saleInfo, setSaleInfo }) {
+  const [productList, setProductList] = useState([]);
+  const [TotalValue, setTotalValue] = useState(0);
+
+  useEffect(() => {
+    let x = 0;
+    productList.map((e) => (x += e.value));
+    setTotalValue(x);
+  }, [productList]);
+
   function handleClick() {
-    setProductList([...productList, { id: nanoid()}]);
+    setProductList([...productList, { id: nanoid() }]);
   }
 
   function removeList(id) {
     const newProductList = productList.filter((e) => {
       return e.id !== id;
     });
-    console.log(newProductList);
     setProductList(newProductList);
   }
-
-  useEffect(() => {
-    console.log(productList);
-    let x = 0;
-    productList.map((e) => (x += e.value));
-    setTotalValue(x);
-  }, [productList]);
 
   function setTotalValueByFunc(val) {
     const newList = productList.map((e) => (e.id === val.id ? val : e));
     setProductList(newList);
   }
+  const toast = useToast();
 
+  function handleSaleBtn() {
+    if (!productList.length) {
+      return toast({
+        title: "Empty Product !!",
+        description: "Entry the product details before sale",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      console.log(TotalValue);
+      setSaleInfo([...saleInfo, { User: {user,total:TotalValue}, Products: productList }]);
+      setProductList([]);
+      setUser({});
+      return toast({
+        title: "Product Sale Successfull",
+        description: "The sale list will be saved in our database",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }
   return (
     <div>
       <VStack mt="5" p="2" border="1px" borderColor="gray.300" borderRadius="lg" minH="40vh" alignItems="stretch">
@@ -67,6 +92,11 @@ function ProductList({ productList, setProductList, TotalValue, setTotalValue })
         <Text textAlign="center" w="20%">
           {TotalValue}৳
         </Text>
+      </HStack>
+      <HStack justifyContent="center">
+        <Button colorScheme="teal" variant="outline" onClick={handleSaleBtn}>
+          Sale Now
+        </Button>
       </HStack>
     </div>
   );

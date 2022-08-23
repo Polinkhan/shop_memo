@@ -1,17 +1,24 @@
 import { Container } from "@chakra-ui/react";
-import CusterInfo from "./components/CusterInfo";
 import HeaderInfo from "./components/HeaderInfo";
-import ProductList from "./components/ProductList";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [productList, setProductList] = useState([]);
-  const [TotalValue, setTotalValue] = useState(0);
+  const [user, setUser] = useState({});
+  const [saleInfo, setSaleInfo] = useState([]);
+
+  // useEffect(() => {
+  //   console.log("saleInfo", saleInfo);
+  // }, [saleInfo]);
+
+  useEffect(() => {
+    console.log("user", user);
+  }, [user]);
+
   return (
     <Container>
       <HeaderInfo />
-      <CusterInfo />
-      <ProductList productList={productList} setProductList={setProductList} TotalValue={TotalValue} setTotalValue={setTotalValue}/>
+      <Navbar user={user} setUser={setUser} saleInfo={saleInfo} setSaleInfo={setSaleInfo} />
     </Container>
   );
 }
