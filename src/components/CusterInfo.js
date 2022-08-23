@@ -10,16 +10,16 @@ function CusterInfo() {
         <p>Date : {new Date().toDateString()}</p>
       </HStack>
       <InputGroup>
-        <InputLeftAddon children="Name :" w="20%" justifyContent="center" bg="white" border="0"/>
+        <InputLeftAddon children="Name :" w="20%" justifyContent="center" bg="white" border="0" />
         <Input variant="flushed" type="text" placeholder="Customer Name" />
       </InputGroup>
       <InputGroup>
-        <InputLeftAddon children="Address :" w="20%" justifyContent="center" bg="white" border="0"/>
-        <Input variant="flushed" type="text" placeholder="Customer Address" />
+        <InputLeftAddon children="Phone :" w="20%" justifyContent="center" bg="white" border="0" />
+        <Input variant="flushed" type="text" placeholder="Customer Phone Number" />
       </InputGroup>
       <InputGroup>
-        <InputLeftAddon children="Phone No :" w="20%" justifyContent="center" bg="white" border="0"/>
-        <Input variant="flushed" type="text" placeholder="Customer Phone Number" />
+        <InputLeftAddon children="Address :" w="20%" justifyContent="center" bg="white" border="0" />
+        <Input variant="flushed" type="text" placeholder="Customer Address" />
       </InputGroup>
     </VStack>
   );
