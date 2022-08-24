@@ -7,13 +7,13 @@ function App() {
   const [user, setUser] = useState({});
   const [saleInfo, setSaleInfo] = useState([]);
 
-  // useEffect(() => {
-  //   console.log("saleInfo", saleInfo);
-  // }, [saleInfo]);
-
   useEffect(() => {
-    console.log("user", user);
-  }, [user]);
+    console.log("saleInfo", saleInfo);
+  }, [saleInfo]);
+
+  // useEffect(() => {
+  //   console.log("user", user);
+  // }, [user]);
 
   return (
     <Container>

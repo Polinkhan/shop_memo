@@ -7,16 +7,16 @@ function Saledata({ saleInfo }) {
       {saleInfo.map((Data, index) => (
         <AccordionItem key={index}>
           <h2>
-            <AccordionButton my="2" bg="blue.100" _expanded={{ bg: 'teal.200' }}>
+            <AccordionButton my="2" bg="blue.100" borderRadius="full" _expanded={{ bg: 'teal.200' }}>
               <HStack w="100%" divider={<StackDivider />} justifyContent="space-between">
-                <Text w="30%">{Data.User.user.name}</Text>
-                <Text w="40%">{Data.User.user.address}</Text>
-                <Text w="30%">{Data.User.total}/=</Text>
+                <Text w="30%">{Data.User.name}</Text>
+                <Text w="40%">{Data.User.address}</Text>
+                <Text w="30%">{Data.Products.TotalValue}/=</Text>
               </HStack>
               <AccordionIcon />
             </AccordionButton>
           </h2>
-          <AccordionPanel p={0} bg="gray.100">
+          <AccordionPanel p={0} bg="gray.100" borderRadius="lg" mb="2">
         
               <HStack divider={<StackDivider />}>
                 <Text py={2} w="8%" fontSize="sm" textAlign="center">
@@ -36,7 +36,7 @@ function Saledata({ saleInfo }) {
                 </Text>
               </HStack>
               <Divider/>
-              {Data.Products.map((product,index) => (
+              {Data.Products.productList.map((product,index) => (
                 <HStack key={product.id} divider={<StackDivider />}>
                   <Text py={2} w="8%" fontSize="sm" textAlign="center">
                     {index+1}

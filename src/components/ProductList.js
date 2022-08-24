@@ -41,8 +41,7 @@ function ProductList({ user, setUser, saleInfo, setSaleInfo }) {
         isClosable: true,
       });
     } else {
-      console.log(TotalValue);
-      setSaleInfo([...saleInfo, { User: {user,total:TotalValue}, Products: productList }]);
+      setSaleInfo([...saleInfo, { User: user, Products: { productList, TotalValue } }]);
       setProductList([]);
       setUser({});
       return toast({
