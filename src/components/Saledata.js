@@ -1,16 +1,16 @@
 import React from "react";
 import { Text, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel, HStack, StackDivider, Divider } from "@chakra-ui/react";
 
-function Saledata({ saleInfo }) {
+function Saledata({ data }) {
   return (
     <Accordion allowToggle>
-      {saleInfo.map((Data, index) => (
+      {data.map((Data, index) => (
         <AccordionItem key={index}>
           <h2>
             <AccordionButton my="2" bg="blue.100" borderRadius="full" _expanded={{ bg: 'teal.200' }}>
               <HStack w="100%" divider={<StackDivider />} justifyContent="space-between">
                 <Text w="30%">{Data.User.name}</Text>
-                <Text w="40%">{Data.User.address}</Text>
+                <Text w="40%">{Data.createdAt}</Text>
                 <Text w="30%">{Data.Products.TotalValue}/=</Text>
               </HStack>
               <AccordionIcon />

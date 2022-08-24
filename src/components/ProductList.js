@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 
-function ProductList({ user, setUser, saleInfo, setSaleInfo }) {
+function ProductList({ user, setUser, upload }) {
   const [productList, setProductList] = useState([]);
   const [TotalValue, setTotalValue] = useState(0);
 
@@ -32,16 +32,16 @@ function ProductList({ user, setUser, saleInfo, setSaleInfo }) {
   const toast = useToast();
 
   function handleSaleBtn() {
-    if (!productList.length) {
+    if (!productList.length || !user.name) {
       return toast({
         title: "Empty Product !!",
-        description: "Entry the product details before sale",
+        description: "Entry the customer name & product details",
         status: "error",
         duration: 4000,
         isClosable: true,
       });
     } else {
-      setSaleInfo([...saleInfo, { User: user, Products: { productList, TotalValue } }]);
+      upload({ createdAt: new Date().toLocaleTimeString(), User: user, Products: { productList, TotalValue } });
       setProductList([]);
       setUser({});
       return toast({
