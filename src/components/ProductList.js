@@ -1,12 +1,25 @@
-import { HStack, VStack, Text, StackDivider, Divider, Button, useToast } from "@chakra-ui/react";
+import {
+  HStack,
+  VStack,
+  Text,
+  StackDivider,
+  Divider,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import { FaPlusCircle } from "react-icons/fa";
 import { nanoid } from "nanoid";
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
+import { useCustomer } from "../contexts/CustomerContext";
+import { useFirebase } from "../contexts/FirebaseContext";
 
-function ProductList({ user, setUser, upload }) {
+function ProductList() {
   const [productList, setProductList] = useState([]);
   const [TotalValue, setTotalValue] = useState(0);
+
+  const { customer, setCustomerDetail } = useCustomer();
+  const { upload } = useFirebase();
 
   useEffect(() => {
     let x = 0;
@@ -32,7 +45,7 @@ function ProductList({ user, setUser, upload }) {
   const toast = useToast();
 
   function handleSaleBtn() {
-    if (!productList.length || !user.name) {
+    if (!productList.length || !customer.name) {
       return toast({
         title: "Empty Product !!",
         description: "Entry the customer name & product details",
@@ -41,9 +54,13 @@ function ProductList({ user, setUser, upload }) {
         isClosable: true,
       });
     } else {
-      upload({ createdAt: new Date().toLocaleTimeString(), User: user, Products: { productList, TotalValue } });
+      upload({
+        createdAt: new Date().toLocaleTimeString(),
+        User: customer,
+        Products: { productList, TotalValue },
+      });
       setProductList([]);
-      setUser({});
+      setCustomerDetail({});
       return toast({
         title: "Product Sale Successfull",
         description: "The sale list will be saved in our database",
@@ -55,7 +72,15 @@ function ProductList({ user, setUser, upload }) {
   }
   return (
     <div>
-      <VStack mt="5" p="2" border="1px" borderColor="gray.300" borderRadius="lg" minH="40vh" alignItems="stretch">
+      <VStack
+        mt="5"
+        p="2"
+        border="1px"
+        borderColor="gray.300"
+        borderRadius="lg"
+        minH="40vh"
+        alignItems="stretch"
+      >
         <HStack divider={<StackDivider />} textAlign="center">
           <Text w="8%" fontSize="sm">
             No
@@ -79,9 +104,22 @@ function ProductList({ user, setUser, upload }) {
 
         <Divider />
         {productList.map((e, index) => (
-          <Product key={e.id} id={e.id} index={index + 1} setTotalValueByFunc={setTotalValueByFunc} removeList={removeList} />
+          <Product
+            key={e.id}
+            id={e.id}
+            index={index + 1}
+            setTotalValueByFunc={setTotalValueByFunc}
+            removeList={removeList}
+          />
         ))}
-        <HStack cursor="pointer" justifyContent="center" bg="blue.100" borderRadius="full" height="5vh" onClick={handleClick}>
+        <HStack
+          cursor="pointer"
+          justifyContent="center"
+          bg="blue.100"
+          borderRadius="full"
+          height="5vh"
+          onClick={handleClick}
+        >
           <Text>Add Product</Text>
           <FaPlusCircle />
         </HStack>

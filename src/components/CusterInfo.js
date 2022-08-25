@@ -1,22 +1,32 @@
-import { HStack, InputGroup, InputLeftAddon, Input, Spacer, VStack } from "@chakra-ui/react";
+import {
+  HStack,
+  InputGroup,
+  InputLeftAddon,
+  Input,
+  Spacer,
+  VStack,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useCustomer } from "../contexts/CustomerContext";
 
-function CusterInfo({ user, setUser }) {
+function CusterInfo() {
   const [userName, setUserName] = useState("");
   const [userMobile, setUserMobile] = useState("");
   const [userAddress, setUserAddress] = useState("");
 
+  const { customer, setCustomerDetail } = useCustomer();
+
   useEffect(() => {
-    setUser({ name: userName, phone: userMobile, address: userAddress });
+    setCustomerDetail({ name: userName, phone: userMobile, address: userAddress });
   }, [userName, userMobile, userAddress]);
 
   useEffect(() => {
-    if (!Object.keys(user).length) {
+    if (!Object.keys(customer).length) {
       setUserName("");
       setUserMobile("");
       setUserAddress("");
     }
-  }, [user]);
+  }, [customer]);
 
   return (
     <VStack alignItems="stretch">
@@ -26,7 +36,13 @@ function CusterInfo({ user, setUser }) {
         <p>Date : {new Date().toDateString()}</p>
       </HStack>
       <InputGroup>
-        <InputLeftAddon children="Name :" w="20%" justifyContent="center" bg="white" border="0" />
+        <InputLeftAddon
+          children="Name :"
+          w="20%"
+          justifyContent="center"
+          bg="white"
+          border="0"
+        />
         <Input
           variant="flushed"
           type="text"
@@ -38,7 +54,13 @@ function CusterInfo({ user, setUser }) {
         />
       </InputGroup>
       <InputGroup>
-        <InputLeftAddon children="Phone :" w="20%" justifyContent="center" bg="white" border="0" />
+        <InputLeftAddon
+          children="Phone :"
+          w="20%"
+          justifyContent="center"
+          bg="white"
+          border="0"
+        />
         <Input
           variant="flushed"
           type="text"
@@ -50,7 +72,13 @@ function CusterInfo({ user, setUser }) {
         />
       </InputGroup>
       <InputGroup>
-        <InputLeftAddon children="Address :" w="20%" justifyContent="center" bg="white" border="0" />
+        <InputLeftAddon
+          children="Address :"
+          w="20%"
+          justifyContent="center"
+          bg="white"
+          border="0"
+        />
         <Input
           variant="flushed"
           type="text"

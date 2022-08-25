@@ -4,7 +4,7 @@ import CusterInfo from "./CusterInfo";
 import ProductList from "./ProductList";
 import Saledata from "./Saledata";
 
-function Navbar({ user, setUser, data, upload }) {
+function Navbar() {
   return (
     <Tabs variant="soft-rounded" colorScheme="green" border="1px" minH="96vh" borderColor="gray.300" borderRadius="lg">
       <HStack>
@@ -21,11 +21,11 @@ function Navbar({ user, setUser, data, upload }) {
       </Box>
       <TabPanels>
         <TabPanel>
-          <CusterInfo user={user} setUser={setUser} />
-          <ProductList user={user} setUser={setUser} upload={upload} />
+          <CusterInfo />
+          <ProductList />
         </TabPanel>
         <TabPanel>
-          <Saledata data={data} />
+          <Saledata/>
         </TabPanel>
       </TabPanels>
     </Tabs>
